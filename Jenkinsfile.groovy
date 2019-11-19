@@ -20,6 +20,7 @@ properties([
 node(){
     def workDir = sh(returnStdout: true, script: "pwd").trim()
     stage('CHEKOUT'){ 
+		currentBuild.displayName = "#${BUILD_NUMBER} text1"
         //sh"sudo chmod -R 777 ."
 		ansiColor('xterm') {
             printlnGreen "ttexttt"
