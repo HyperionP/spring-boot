@@ -26,9 +26,7 @@ node(){
         }
         deleteDir()
         checkout scm
-		def printlnGreen(text) {
-    println "\033[1;4;37;42m$text\033[0m"
-}
+		
 		sh"pwd && ls -lh"
         // withCredentials([usernamePassword(credentialsId: '0765f4d3-40d9-4d02-a696-5891d171ac31', passwordVariable: 'password', usernameVariable: 'name')]){
             // sh"git clone https://$name:$password@github.com/HyperionP/spring-boot.git"
@@ -45,4 +43,7 @@ node(){
        // archiveArtifacts artifacts: "**/target/*.jar", fingerprint: true
     }
     
+}
+def printlnGreen(text) {
+    println "\033[1;4;37;42m$text\033[0m"
 }
