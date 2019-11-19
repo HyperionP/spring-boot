@@ -1,3 +1,6 @@
+properties([
+pipelineTriggers([])
+])
 node(){
     def workDir = sh(returnStdout: true, script: "pwd").trim()
     stage('CHEKOUT'){ 
