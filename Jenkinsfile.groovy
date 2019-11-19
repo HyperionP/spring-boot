@@ -1,5 +1,21 @@
 properties([
-pipelineTriggers([])
+    pipelineTriggers([
+        GenericTrigger(
+            causeString: 'Push to master', 
+            genericVariables: [[
+                defaultValue: '',
+                key: 'ref', 
+                regexpFilter: '', 
+                value: '$.ref'
+            ]], 
+            printContributedVariables: true, 
+            printPostContent: true, 
+            regexpFilterExpression: 'master$', 
+            regexpFilterText: '$ref', 
+            silentResponse: true, 
+            token: '4092480392482342'
+        )
+    ])
 ])
 node(){
     def workDir = sh(returnStdout: true, script: "pwd").trim()
