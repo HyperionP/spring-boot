@@ -1,0 +1,5 @@
+- name: deploy jar
+  become: yes
+  hosts: aws
+  roles:
+    - deploy
