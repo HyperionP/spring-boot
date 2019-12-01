@@ -59,14 +59,6 @@ server.upload spec: uploadSpec
      }
      stage('CI DEPLOY'){
 	     sh"sudo -S su - parasitchmax -c 'ansible-playbook deploy_artf.yml'"
-		 if(TAG == 'latest'){
-		 sh"sudo -S su - parasitchmax -c 'ansible-playbook deploy_docker.yml -e varTag=latest'"
-		 }
-		 if(TAG == 'test'){
-		 sh"sudo -S su - parasitchmax -c 'ansible-playbook deploy_docker.yml -e varTag=test'"
-		 }
-		 if(TAG == 'number'){
 		 sh"sudo -S su - parasitchmax -c 'ansible-playbook deploy_docker.yml -e varTag=${BUILD_NUMBER}'"
-		 }
 }
 }
