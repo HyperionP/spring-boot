@@ -10,7 +10,7 @@ properties([
     parameters([
         choice(
             name: 'TAG',
-            choices: 'BuildNumber\latest\test',
+            choices: 'number\latest\test',
             description: 'Choise docker TAG'
         )
     ]),
@@ -71,7 +71,7 @@ server.upload spec: uploadSpec
 		 if(TAG == 'test'){
 		 sh"sudo -S su - parasitchmax -c 'ansible-playbook deploy_docker.yml -e varTag=test'"
 		 }
-		 if(TAG == 'BuildNumber'){
+		 if(TAG == 'number'){
 		 sh"sudo -S su - parasitchmax -c 'ansible-playbook deploy_docker.yml -e varTag=${BUILD_NUMBER}'"
 		 }
 }
