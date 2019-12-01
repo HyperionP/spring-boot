@@ -9,9 +9,9 @@ properties([
     ),
     parameters([
         choice(
-            name: 'BRANCH',
-            choices: 'master\nstable\nrelease',
-            description: 'Choise master, stable, release'
+            name: 'TAG',
+            choices: 'BuildNumber\latest\test',
+            description: 'Choise docker TAG'
         )
     ]),
     pipelineTriggers([
@@ -39,8 +39,9 @@ node(){
     stage('CHEKOUT'){ 
         sh"sudo chmod -R 777 ."
         deleteDir()
-        withCredentials([usernamePassword(credentialsId: 'aa0815bb-af35-4940-a3a8-b763ab24c501', passwordVariable: 'password', usernameVariable: 'name')]){
-            sh"git clone https://$name:$password@github.com/HyperionP/spring-boot.git"
+		checkout()
+        //withCredentials([usernamePassword(credentialsId: 'aa0815bb-af35-4940-a3a8-b763ab24c501', passwordVariable: 'password', usernameVariable: 'name')]){
+          //  sh"git clone https://$name:$password@github.com/HyperionP/spring-boot.git"
         }
         
     }
@@ -60,9 +61,17 @@ node(){
  ]
 }"""
 server.upload spec: uploadSpec
-//ansiblePlaybook colorized: true, playbook: '$workDir/spring-boot/deploy_artf.yml'
-sh"sudo -S su - parasitchmax -c 'ansible-playbook deploy_artf.yml'"
-         
+//ansiblePlaybook colorized: true, playbook: '$workDir/spring-boot/deploy_artf.yml'         
      }
-    
+     stage('CI DEPLOY'){
+	     sh"sudo -S su - parasitchmax -c 'ansible-playbook deploy_artf.yml'"
+		 if(TAG == 'latest'){
+		 sh"sudo -S su - parasitchmax -c 'ansible-playbook deploy_docker.yml -e varTag=latest'"
+		 }
+		 if(TAG == 'test'){
+		 sh"sudo -S su - parasitchmax -c 'ansible-playbook deploy_docker.yml -e varTag=test'"
+		 }
+		 if(TAG == 'BuildNumber'){
+		 sh"sudo -S su - parasitchmax -c 'ansible-playbook deploy_docker.yml -e varTag=${BUILD_NUMBER}'"
+		 }
 }
