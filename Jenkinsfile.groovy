@@ -69,3 +69,4 @@ server.upload spec: uploadSpec
 		 sh"sudo -S su - parasitchmax -c 'ansible-playbook deploy_docker.yml -e varTag=${BUILD_NUMBER}'"
 		 }
 }
+}
