@@ -7,13 +7,7 @@ properties([
             numToKeepStr: '10'
         )
     ),
-    parameters([
-        choice(
-            name: 'TAG',
-            choices: 'number\latest\test',
-            description: 'Choise docker TAG'
-        )
-    ]),
+    
     pipelineTriggers([
         GenericTrigger(
             causeString: 'Push to master', 
