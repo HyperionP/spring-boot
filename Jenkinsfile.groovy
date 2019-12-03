@@ -33,10 +33,9 @@ node(){
     stage('CHEKOUT'){ 
         sh"sudo chmod -R 777 ."
         deleteDir()
-		checkout scm
-        //withCredentials([usernamePassword(credentialsId: 'aa0815bb-af35-4940-a3a8-b763ab24c501', passwordVariable: 'password', usernameVariable: 'name')]){
-      //      sh"git clone https://$name:$password@github.com/HyperionP/spring-boot.git"
-       // }
+        withCredentials([usernamePassword(credentialsId: 'aa0815bb-af35-4940-a3a8-b763ab24c501', passwordVariable: 'password', usernameVariable: 'name')]){
+            sh"git clone https://$name:$password@github.com/HyperionP/spring-boot.git"
+        }
         
     }
     stage('BUILD'){
