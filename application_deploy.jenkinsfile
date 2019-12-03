@@ -1,0 +1,19 @@
+pipeline {
+   agent any
+   stages {
+      stage('DEPLOY TO CI QA') {
+         steps {
+            sh "sudo -S su - parasitchmax -c 'ansible-playbook deploy_ciqa.yml -e varTag=${TAG}'"
+         }
+      }
+      stage('DEPLOY TO UAT'){
+          
+          input {
+          message "Approve deploy to uat"
+          }
+          steps{
+            sh "sudo -S su - parasitchmax -c 'ansible-playbook deploy_uat.yml -e varPort=80'"
+          }
+      }
+   }
+}
